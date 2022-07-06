@@ -15,15 +15,15 @@ class Login extends React.Component {
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
-    // console.log(target.value);
   }
 
   checkDisabled = () => {
     const { email, password } = this.state;
     const minLength = 6;
+    const regex = /\S+@\S+\.com/;
     const arrayConditions = [
       password.length >= minLength,
-      email.includes('@'),
+      regex.test(email),
     ];
     return !arrayConditions.every((condition) => condition);
   }
@@ -32,7 +32,7 @@ class Login extends React.Component {
     const { email } = this.state;
     const { loginDispatch, history } = this.props;
     loginDispatch(email);
-    history.push('/');
+    history.push('/carteira');
   }
 
   render() {
