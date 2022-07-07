@@ -1,4 +1,4 @@
-import getData from '../services/api';
+import { filteredCurrencies } from '../services/api';
 
 // Coloque aqui suas actions
 export const LOGGED = 'LOGGED';
@@ -28,9 +28,15 @@ function addCurrencies(currencies) {
 
 export function fetchCurrencies() {
   return async (dispatch) => {
-    const currencies = await getData();
-    const coinSymbols = Object.keys(currencies);
-    const filteredCoinSymbols = coinSymbols.filter((currency) => currency !== 'USDT');
-    dispatch(addCurrencies(filteredCoinSymbols));
+    const currencies = await filteredCurrencies();
+    dispatch(addCurrencies(currencies));
   };
 }
+// export function fetchCurrencies() {
+//   return async (dispatch) => {
+//     const currencies = await getData();
+//     const coinSymbols = Object.keys(currencies);
+//     const filteredCoinSymbols = coinSymbols.filter((currency) => currency !== 'USDT');
+//     dispatch(addCurrencies(filteredCoinSymbols));
+//   };
+// }

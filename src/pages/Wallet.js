@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Form from '../components/Form';
 import { fetchCurrencies } from '../actions';
 
 // Crie um header para a página de carteira
@@ -11,7 +12,11 @@ class Wallet extends React.Component {
     const { currencies } = this.props;
     currencies();
     return (
-      <Header />
+      <div>
+        <Header />
+        <Form />
+      </div>
+
     );
   }
 }
