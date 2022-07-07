@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../actions';
+import getData from '../services/api';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class Login extends React.Component {
       password: '',
       // disabled: true,
     };
+  }
+
+  async componentDidMount() {
+    const data = await getData();
+    console.log(Object.keys(data));
   }
 
   handleChange = ({ target }) => {

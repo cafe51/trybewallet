@@ -18,6 +18,10 @@ class Header extends React.Component {
   }
 }
 
+// const mapDispatchToProps = (dispatch) => ({
+//   walletDataDispatch: (walletData) => dispatch(walletActionCreator(walletData)),
+// });
+
 const mapStateToProps = (state) => ({
   user: state.user.email,
 });

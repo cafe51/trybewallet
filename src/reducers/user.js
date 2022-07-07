@@ -2,7 +2,7 @@
 import { LOGGED } from '../actions/index';
 
 const INITIAL_STATE = {
-  email: '',
+  email: '', // string que armazena o email da pessoa usuária
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -10,7 +10,7 @@ export default function user(state = INITIAL_STATE, action) {
   case LOGGED:
     return {
       ...state,
-      email: action.payload.email,
+      email: action.payload,
     };
   default:
     return state;
