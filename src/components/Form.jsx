@@ -92,9 +92,9 @@ class Form extends React.Component {
               // data-testid="description-input"
             >
               {
-                currencies.map((coin) => (
+                currencies.map((coin, index) => (
                   <option
-                    key={ coin }
+                    key={ index }
                     value={ coin }
                   >
                     {coin}
@@ -172,7 +172,11 @@ const mapStateToProps = (state) => ({
 Form.propTypes = {
   newExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  cotacao: PropTypes.objectOf(PropTypes.object).isRequired,
+  cotacao: PropTypes.objectOf(PropTypes.object),
+};
+
+Form.defaultProps = {
+  cotacao: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
