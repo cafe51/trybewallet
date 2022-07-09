@@ -6,29 +6,29 @@ import { UPDATE_EXPENSES,
   RENDER_TOTAL,
 } from '../actions/index';
 
-import { response } from '../tests/mocks/mockData';
+// import { response } from '../tests/mocks/mockData';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
   expenses: [
-    {
-      id: 0,
-      value: '10',
-      currency: 'USD',
-      method: 'Cartão de crédito',
-      tag: 'Lazer',
-      description: 'Dez dólares',
-      exchangeRates: response,
-    },
-    {
-      id: 1,
-      value: '20',
-      currency: 'EUR',
-      method: 'Dinheiro',
-      tag: 'Trabalho',
-      description: 'Vinte euros',
-      exchangeRates: response,
-    },
+    // {
+    //   id: 0,
+    //   value: '10',
+    //   currency: 'USD',
+    //   method: 'Cartão de crédito',
+    //   tag: 'Lazer',
+    //   description: 'Dez dólares',
+    //   exchangeRates: response,
+    // },
+    // {
+    //   id: 1,
+    //   value: '20',
+    //   currency: 'EUR',
+    //   method: 'Dinheiro',
+    //   tag: 'Trabalho',
+    //   description: 'Vinte euros',
+    //   exchangeRates: response,
+    // },
   ], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
   editor: false, // valor booleano que indica se uma despesa está sendo editada
   idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
