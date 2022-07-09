@@ -21,12 +21,11 @@ export function login(userData) {
   };
 }
 
-function addExpense(expense, totalValue) {
+function addExpense(expense) {
   return {
     type: UPDATE_EXPENSES,
     payload: {
       expenses: [expense],
-      total: totalValue,
     },
   };
 }
@@ -66,10 +65,11 @@ export function fetchCurrencies() {
   };
 }
 
-export function updateExpensesThunk(expenses, totalValue) {
+export function updateExpensesThunk(expenses) {
   return async (dispatch) => {
     const response = await getData();
-    expenses.call = response;
-    dispatch(addExpense(expenses, totalValue));
+    console.log(response);
+    // expenses.call = response;
+    dispatch(addExpense(expenses));
   };
 }

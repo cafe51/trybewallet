@@ -49,7 +49,7 @@ export default function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, ...action.payload.expenses],
-      total: state.total + action.payload.total,
+      // total: state.total + action.payload.total,
     };
   case DELETE_EXPENSES:
     return {

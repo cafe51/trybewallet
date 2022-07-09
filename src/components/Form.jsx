@@ -33,8 +33,9 @@ class Form extends React.Component {
       tag,
       exchangeRates: taxaDeCambio,
     };
-    const totalValue = cotacao[currency].ask * value;
-    newExpense(expenseObject, totalValue);
+    console.log(cotacao);
+    // const totalValue = cotacao[currency].ask * value;
+    newExpense(expenseObject);
     this.setState({ id: id + 1, value: '' });
     // console.log(expenseObject);
   }
@@ -163,7 +164,7 @@ class Form extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  newExpense: (expense, value) => dispatch(updateExpensesThunk(expense, value)),
+  newExpense: (expense) => dispatch(updateExpensesThunk(expense)),
 });
 
 const mapStateToProps = (state) => ({
