@@ -1,13 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense, deductValue } from '../actions';
 
 class Table extends React.Component {
-  // constructor(props) {
-  // super(props);
-  // const { allData } = this.props;
-  // this.state = { data: allData };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      click: 0,
+    };
+  }
+
+  deleteExpenseClick = ({ target }) => {
+    const { deleteLine, deduct } = this.props;
+    const { click } = this.state;
+    deleteLine(Number(target.name));
+    deduct(Number(target.parentNode.parentNode.children[6].innerHTML));
+    this.setState({ click: click + 1 });
+    // history.push('/carteira');
+    // console.log(Number(target.parentNode.parentNode.children[6].innerHTML));
+    // console.log(expenses.splice(Number(0)), 1);
+  }
 
   render() {
     const { expenses } = this.props;
@@ -32,11 +45,11 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.map((expense) => {
+          { expenses.map((expense, index) => {
             // const { USD } = data;
             // const { ask, name } = data[expense.currency];
             const { ask, name } = expense.exchangeRates[expense.currency];
-            console.log(Number(expense.value).toFixed(2));
+            // console.log(Number(expense.value).toFixed(2));
             const cambio = Number(ask).toFixed(2);
             const gastoConvertido = (Number(expense.value) * Number(ask)).toFixed(2);
             // console.log(Number(ask).toFixed(2));
@@ -53,12 +66,20 @@ class Table extends React.Component {
                 <td>{cambio}</td>
                 <td>{gastoConvertido}</td>
                 <td>Real</td>
-
                 <td>
-                  <button type="button" className="button button--edit">
+                  <button
+                    type="button"
+                    className="button button--edit"
+                  >
                     Editar
                   </button>
-                  <button type="button" className="button button--delete">
+                  <button
+                    name={ index }
+                    type="button"
+                    className="button button--delete"
+                    data-testid="delete-btn"
+                    onClick={ this.deleteExpenseClick }
+                  >
                     Excluir
                   </button>
                 </td>
@@ -71,12 +92,22 @@ class Table extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteLine: (indexExpense) => dispatch(deleteExpense(indexExpense)),
+  deduct: (value) => dispatch(deductValue(value)),
+});
+
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   allData: state.wallet.allData,
 });
 
 Table.propTypes = {
+  // history: PropTypes.shape({
+  //   push: PropTypes.func.isRequired,
+  // }).isRequired,
+  deduct: PropTypes.func.isRequired,
+  deleteLine: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -103,4 +134,4 @@ Table.defaultProps = {
   allData: {},
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

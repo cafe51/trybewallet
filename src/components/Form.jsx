@@ -22,7 +22,7 @@ class Form extends React.Component {
   }
 
   handleClick = () => {
-    const { newExpense, cotacao } = this.props;
+    const { newExpense, cotacao, taxaDeCambio } = this.props;
     const { id, value, description, currency, method, tag } = this.state;
     const expenseObject = {
       id,
@@ -31,10 +31,12 @@ class Form extends React.Component {
       currency,
       method,
       tag,
+      exchangeRates: taxaDeCambio,
     };
     const totalValue = cotacao[currency].ask * value;
     newExpense(expenseObject, totalValue);
     this.setState({ id: id + 1, value: '' });
+    // console.log(expenseObject);
   }
 
   render() {
@@ -167,9 +169,11 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   cotacao: state.wallet.allData,
+  taxaDeCambio: state.wallet.allData,
 });
 
 Form.propTypes = {
+  taxaDeCambio: PropTypes.objectOf(PropTypes.number).isRequired,
   newExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   cotacao: PropTypes.objectOf(PropTypes.object),
