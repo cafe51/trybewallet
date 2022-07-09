@@ -61,7 +61,7 @@ describe('9 - Crie um botão para deletar uma despesa da tabela contendo as segu
   });
   
   test('Ao clicar no botão para remover uma despesa, o valor correspondente deve ser subtraído e a despesa total deve ser atualizada no header', () => {
-    const { store, debug } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
+    const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     // debug();
     const totalField = screen.getByTestId(TOTAL_FIELD_TEST_ID);
     expect(totalField).toContainHTML('187.12');

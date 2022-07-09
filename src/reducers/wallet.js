@@ -52,10 +52,10 @@ export default function wallet(state = INITIAL_STATE, action) {
       total: state.total + action.payload.total,
     };
   case DELETE_EXPENSES:
-    state.expenses.splice(action.payload.expenseIndex, 1);
     return {
       ...state,
-      expenses: state.expenses,
+      expenses: state.expenses
+        .filter((item) => item !== state.expenses[action.payload.expenseIndex]),
     };
   case ADD_CURRENCIES:
     return {
@@ -71,14 +71,15 @@ export default function wallet(state = INITIAL_STATE, action) {
   case RENDER_TOTAL:
     return {
       ...state,
-      total: 0,
-      // (state.expenses !== undefined && state.expenses.length > 0)
-      //   ? (
-      //     state.expenses
-      //       .map(({ value, exchangeRates, currency }) => value * exchangeRates[currency])
-      //       .reducer((acc, curr) => acc + curr, 0)
-      //   )
-      //   : 1,
+      total:
+      (state.expenses !== undefined && state.expenses.length > 0)
+        ? (
+          state.expenses
+            .map(({ value, exchangeRates, currency }) => value
+            * exchangeRates[currency].ask)
+            .reduce((acc, curr) => acc + curr, 0)
+        )
+        : 0,
     };
 
   default:

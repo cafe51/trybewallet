@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteExpense, deductValue } from '../actions';
+import { deleteExpense, deductValue, renderTotal } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
@@ -12,11 +12,13 @@ class Table extends React.Component {
   }
 
   deleteExpenseClick = ({ target }) => {
-    const { deleteLine, deduct } = this.props;
+    const { deleteLine, deduct, renderTotalField } = this.props;
     const { click } = this.state;
     deleteLine(Number(target.name));
-    deduct(Number(target.parentNode.parentNode.children[6].innerHTML));
+    // deduct(Number(target.parentNode.parentNode.children[6].innerHTML));
     this.setState({ click: click + 1 });
+    console.log(deduct);
+    renderTotalField();
     // history.push('/carteira');
     // console.log(Number(target.parentNode.parentNode.children[6].innerHTML));
     // console.log(expenses.splice(Number(0)), 1);
@@ -95,6 +97,7 @@ class Table extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   deleteLine: (indexExpense) => dispatch(deleteExpense(indexExpense)),
   deduct: (value) => dispatch(deductValue(value)),
+  renderTotalField: () => dispatch(renderTotal()),
 });
 
 const mapStateToProps = (state) => ({
@@ -103,9 +106,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
-  // history: PropTypes.shape({
-  //   push: PropTypes.func.isRequired,
-  // }).isRequired,
+  renderTotalField: PropTypes.func.isRequired,
   deduct: PropTypes.func.isRequired,
   deleteLine: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({

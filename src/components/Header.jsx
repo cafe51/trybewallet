@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { renderTotal } from '../actions';
+// import getData from '../services/api';
 
 class Header extends React.Component {
   // constructor(props) {
@@ -10,16 +12,17 @@ class Header extends React.Component {
   //   };
   // }
 
-  // componenteDidMout() {
-  //   const { expenses } = this.props;
-  //   this.setState({
-  //     despesas: expenses,
-  //   });
+  // async componentDidMount() {
+  //   const data = await getData();
+  //   console.log(data);
   // }
 
   render() {
     const { user } = this.props;
-    const { expenses, totalExpended } = this.props;
+    const { expenses, totalExpended, renderTotalField } = this.props;
+    renderTotalField();
+    // exiba no console a store do redux
+    console.log('AAAAAAAAAAAAA', expenses.length);
     // console.log(expenses
     //   .map(({ value, exchangeRates, currency }) => exchangeRates[currency].ask * value)
     //   .reduce((acc, curr) => acc + curr));
@@ -38,8 +41,8 @@ class Header extends React.Component {
         <h1 className="header__title">Carteira</h1>
         <h2 data-testid="email-field">{user}</h2>
         <div>
-          <p>{ Number(totalExpended).toFixed(2) }</p>
-          <h3 data-testid="total-field">{ Number(newTotalExpended).toFixed(2) }</h3>
+          <p>{ Number(newTotalExpended).toFixed(2) }</p>
+          <h3 data-testid="total-field">{ Number(totalExpended).toFixed(2) }</h3>
           <span data-testid="header-currency-field">BRL</span>
         </div>
       </header>
@@ -53,11 +56,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   totalExpended: () => dispatch(totalExpended()),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  renderTotalField: () => dispatch(renderTotal()),
+});
 
 Header.propTypes = {
+  renderTotalField: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired,
   totalExpended: PropTypes.number,
   expenses: PropTypes.arrayOf(PropTypes.shape({
@@ -78,4 +82,4 @@ Header.defaultProps = {
   totalExpended: 0,
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

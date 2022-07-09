@@ -10,8 +10,8 @@ import { fetchCurrencies, renderTotal } from '../actions';
 
 class Wallet extends React.Component {
   render() {
-    const { currencies, renderTotalField } = this.props;
-    renderTotalField();
+    const { currencies } = this.props;
+    // renderTotalField();
     currencies();
     return (
       <div>
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   currencies: PropTypes.func.isRequired,
-  renderTotalField: PropTypes.func.isRequired,
+  // renderTotalField: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Wallet);

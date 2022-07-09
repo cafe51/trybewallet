@@ -68,8 +68,8 @@ export function fetchCurrencies() {
 
 export function updateExpensesThunk(expenses, totalValue) {
   return async (dispatch) => {
-    // const response = await getData();
-    // expenses.exchangeRates = response;
+    const response = await getData();
+    expenses.call = response;
     dispatch(addExpense(expenses, totalValue));
   };
 }
